@@ -18,8 +18,3 @@ Huge stretch - It would be cool if it could save places mentioned in journal ent
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
 
 2. To run the app, run `npm run dev.` 
-
-## TODO
-
-1. Print out all the entries from the firebase database 
-2. Reach: if the user is in the middle of a journal entry while navigating to the entries page, make sure the journal entry persists 

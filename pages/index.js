@@ -18,10 +18,11 @@ export default function Home() {
     firebase
       .database()
       .ref("journal-entries")
-      .child(formattedDate)
+      .child(currentTime)
       .set({
         name: "Amrita Venkatraman",
         date: formattedDate,
+        time: currentTime,
         entry: currEntry,
       })
       .catch(alert);
@@ -65,9 +66,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Link href={`/posts/entries`}>
-          Entries
-        </Link>
+        <Link href={`/posts/entries`}>Entries</Link>
         <h3>Today is {formattedDate}.</h3>
         {result ? (
           <h2 className={styles.result}>{result}</h2>
