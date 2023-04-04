@@ -14,10 +14,8 @@ export default function Entries() {
     ref.on("value", (snapshot) => {
       const data = snapshot.val();
       const childValues = Object.values(data);
-      const sortedData = childValues.sort((a,b) => b.time - a.time)
-      // TODO: sort data by time
+      const sortedData = childValues.sort((a,b) => b.time - a.time) // sort data by time
       setEntries(sortedData);
-      console.log(sortedData);
     });
   }, []);
 

@@ -16,8 +16,6 @@ export default async function (req, res) {
     return;
   }
 
-  console.log(req.body);
-
   const journal = req.body.journal || "";
 
   try {

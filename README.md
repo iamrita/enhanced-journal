@@ -8,6 +8,8 @@ Here is a sample video of the current prototype:
 
 ![](https://github.com/iamrita/enhanced_journal/blob/main/recording_4_3_23.gif)
 
+For recording gifs: use [this](https://gifcap.dev/).
+
 There is a lot to be explored here. I want the AI interaction here to not just help you feel inspired during one journal session, but to eventually draw on previous things you might have documented in prior sessions. I want it to be able to recognize positive and negative entries, and show some sort of mood tracker. 
 
 Huge stretch - It would be cool if it could save places mentioned in journal entries on a map of some sort. For example, if I say "I went to an amazing restaurant with my boyfriend," it saves the restaurant on Google Maps. Not sure what this would like design wise so this is a big TBD. 
