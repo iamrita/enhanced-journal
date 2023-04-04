@@ -19,20 +19,12 @@ export default async function (req, res) {
   console.log(req.body);
 
   const journal = req.body.journal || "";
-  // if (animal.trim().length === 0) {
-  //   res.status(400).json({
-  //     error: {
-  //       message: "Please enter a valid animal",
-  //     }
-  //   });
-  //   return;
-  // }
 
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generatePrompt(journal),
-      temperature: 0.6,
+      temperature: 0.6, // consider adjusting this 
       max_tokens: 1000,
     });
     res.status(200).json({ result: completion.data.choices[0].text });

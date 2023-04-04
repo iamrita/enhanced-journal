@@ -6,26 +6,30 @@ import firebase from "../firebase";
 export default function Home() {
   const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
-  const [currEntry, setCurrEntry] = useState([])
+  const [currEntry, setCurrEntry] = useState([]);
 
-  const today = new Date()
-  const options = { month: 'long', day: 'numeric', year: 'numeric' };
-  const formattedDate = today.toLocaleDateString('en-US', options)
+  const today = new Date();
+  const options = { month: "long", day: "numeric", year: "numeric" };
+  const formattedDate = today.toLocaleDateString("en-US", options);
 
   function submitJournal() {
-    firebase.database().ref("journalEntry").set({
-      name: "Amrita Venkatraman",
-      date: formattedDate,
-      entry: currEntry
-    }).catch(alert)
-    
+    firebase
+      .database()
+      .ref("journalEntry")
+      .set({
+        name: "Amrita Venkatraman",
+        date: formattedDate,
+        entry: currEntry,
+      })
+      .catch(alert);
   }
 
   async function onSubmit(event) {
     event.preventDefault();
-    currEntry.push(journalEntry)
+    currEntry.push(journalEntry);
     try {
-      const response = await fetch("/api/generate", { // refers to generate.js in the api folder in this project 
+      const response = await fetch("/api/generate", {
+        // refers to generate.js in the api folder in this project
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,12 +39,15 @@ export default function Home() {
 
       const data = await response.json();
       if (response.status !== 200) {
-        throw data.error || new Error(`Request failed with status ${response.status}`);
+        throw (
+          data.error ||
+          new Error(`Request failed with status ${response.status}`)
+        );
       }
 
       setResult(data.result);
       setJournalEntry("");
-    } catch(error) {
+    } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
@@ -56,23 +63,28 @@ export default function Home() {
 
       <main className={styles.main}>
         <h3>Today is {formattedDate}.</h3>
+        {result ? (
+          <h2 className={styles.result}>{result}</h2>
+        ) : (
+          <h2 className={styles.result}>How are you feeling today?</h2>
+        )}
         <form onSubmit={onSubmit}>
-          <textarea 
+          <textarea
             className={styles.textarea}
             type="text"
             name="journalEntry"
-            placeholder="How are you feeling today?"
+            placeholder="Start typing..."
             value={journalEntry}
             onChange={(e) => setJournalEntry(e.target.value)}
           />
           <input type="submit" value="Submit Entry" />
         </form>
-        <h2>Follow up Questions: </h2>
-        <div className={styles.result}>{result}</div>
         <br></br>
         <h2>My Current Entry: </h2>
-        <p>{currEntry.map((entry) => entry.trim()).join(' ')}</p>
-        <button className={styles.save} onClick={(e) => submitJournal(e)}>Save Entry</button>
+        <p>{currEntry.map((entry) => entry.trim()).join(" ")}</p>
+        <button className={styles.save} onClick={(e) => submitJournal(e)}>
+          Save Entry
+        </button>
       </main>
     </div>
   );
