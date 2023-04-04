@@ -6,8 +6,7 @@ Right now, the web app acts as an interative journal; the user types in how they
 
 Here is a sample video of the current prototype: 
 
-![](https://github.com/enhanced_journal/recording_4_3_23.gif)
-
+![](https://github.com/iamrita/enhanced_journal/blob/main/recording_4_3_23.gif)
 
 
 ## Setup
