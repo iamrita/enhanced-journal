@@ -12,11 +12,13 @@ export default function Home() {
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
   const formattedDate = today.toLocaleDateString("en-US", options);
+  const currentTime = today.getTime()
 
   function submitJournal() {
     firebase
       .database()
-      .ref("journalEntry")
+      .ref("journal-entries")
+      .child(formattedDate)
       .set({
         name: "Amrita Venkatraman",
         date: formattedDate,
