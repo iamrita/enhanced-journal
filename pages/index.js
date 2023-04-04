@@ -1,20 +1,36 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
+import firebase from "../firebase";
 
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
+  const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
+  const [currEntry, setCurrEntry] = useState([])
+
+  const today = new Date()
+  const options = { month: 'long', day: 'numeric', year: 'numeric' };
+  const formattedDate = today.toLocaleDateString('en-US', options)
+
+  function submitJournal() {
+    firebase.database().ref("journalEntry").set({
+      name: "Amrita Venkatraman",
+      date: formattedDate,
+      entry: currEntry
+    }).catch(alert)
+    
+  }
 
   async function onSubmit(event) {
     event.preventDefault();
+    currEntry.push(journalEntry)
     try {
       const response = await fetch("/api/generate", { // refers to generate.js in the api folder in this project 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: animalInput }),
+        body: JSON.stringify({ journal: journalEntry }),
       });
 
       const data = await response.json();
@@ -23,7 +39,7 @@ export default function Home() {
       }
 
       setResult(data.result);
-      setAnimalInput("");
+      setJournalEntry("");
     } catch(error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -39,19 +55,24 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <img src="/dog.png" className={styles.icon} />
-        <h3>How are you feeling today?</h3>
+        <h3>Today is {formattedDate}.</h3>
         <form onSubmit={onSubmit}>
-          <textarea
+          <textarea 
+            className={styles.textarea}
             type="text"
-            name="animal"
-            placeholder="Enter an animal"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
+            name="journalEntry"
+            placeholder="How are you feeling today?"
+            value={journalEntry}
+            onChange={(e) => setJournalEntry(e.target.value)}
           />
-          <input type="submit" value="Generate names" />
+          <input type="submit" value="Submit Entry" />
         </form>
+        <h2>Follow up Questions: </h2>
         <div className={styles.result}>{result}</div>
+        <br></br>
+        <h2>My Current Entry: </h2>
+        <p>{currEntry.map((entry) => entry.trim()).join(' ')}</p>
+        <button className={styles.save} onClick={(e) => submitJournal(e)}>Save Entry</button>
       </main>
     </div>
   );
