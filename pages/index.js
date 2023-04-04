@@ -63,7 +63,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
+        <title>Enhanced Journal</title>
         <link rel="icon" href="/dog.png" />
       </Head>
 

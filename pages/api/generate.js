@@ -22,7 +22,7 @@ export default async function (req, res) {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: generatePrompt(journal),
-      temperature: 0.6, // consider adjusting this 
+      temperature: 0.6, // consider adjusting this
       max_tokens: 1000,
     });
     res.status(200).json({ result: completion.data.choices[0].text });
@@ -45,5 +45,5 @@ export default async function (req, res) {
 function generatePrompt(journal) {
   return `Pretend you are a therapist. Ask a thoughtful follow up question to "${journal}"
   For example if someone is feeling lonely,
-  ask them what they did that made them feel that way. Don't number the questions.  `;
+  ask them what has happened recently that would make them feel that way.`;
 }
