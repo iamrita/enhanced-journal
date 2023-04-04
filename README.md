@@ -2,7 +2,7 @@
 
 Based off this [article](https://every.to/chain-of-thought/gpt-3-is-the-best-journal-you-ve-ever-used), I want to create a piece of software that feels like a journal and therapy session combined into one. 
 
-Right now, the web app acts as an interative journal; the user types in how they are feeling, and the the website repsonds back with relevant questions to keep the user writing. If you hit "Save Entry," it stores the current entry with the date to a database in Firebase. You can look at your past entries in the "Entries" link at the top (not show in current gif)
+Right now, the web app acts as an interative journal; the user types in how they are feeling, and the the website repsonds back with relevant questions to keep the user writing. If you hit "Save Entry," it stores the current entry with the date to a database in Firebase. You can look at your past entries in the "Entries" link at the top (not shown in current gif).
 
 Here is a sample video of the current prototype: 
 

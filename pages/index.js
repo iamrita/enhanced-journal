@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./index.module.css";
 import firebase from "../firebase";
 import Link from "next/link";
+import toast from "react-simple-toasts";
 
 export default function Home() {
   const [journalEntry, setJournalEntry] = useState("");
@@ -26,6 +27,7 @@ export default function Home() {
         entry: currEntry,
       })
       .catch(alert);
+      toast("Journal Saved!")
   }
 
   async function onSubmit(event) {

@@ -27,7 +27,7 @@ export default function Entries() {
       <main className={styles.main}>
         <h3>Entries</h3>
         {entries.map((entry) => (
-          <div>
+          <div key={entry.time}>
             <h2>Date: {entry.date}</h2>
             <p>
               <b>Entry:</b> {entry.entry}
