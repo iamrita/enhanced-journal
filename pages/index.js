@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
 import firebase from "../firebase";
+import Link from "next/link";
 
 export default function Home() {
   const [journalEntry, setJournalEntry] = useState("");
@@ -61,6 +62,7 @@ export default function Home() {
         <link rel="icon" href="/dog.png" />
       </Head>
 
+      <Link className={styles.main} href={`/posts/entries`}>Entries</Link>
       <main className={styles.main}>
         <h3>Today is {formattedDate}.</h3>
         {result ? (
