@@ -1,12 +1,16 @@
 # Enhanced Journal: Chat-GPT Inspired Journal Sessions 
 
-Based off this [article](https://every.to/chain-of-thought/gpt-3-is-the-best-journal-you-ve-ever-used), I wanted to create a piece of software that felt like a journal and therapy session combined into one. 
+Based off this [article](https://every.to/chain-of-thought/gpt-3-is-the-best-journal-you-ve-ever-used), I want to create a piece of software that feels like a journal and therapy session combined into one. 
 
-Right now, the web app acts as an interative journal; the user types in how they are feeling, and the the website repsonds back with relevang questions to keep the user inspired. If you hit "Save Entry," it stores the current entry with the date to a database in Firebase. 
+Right now, the web app acts as an interative journal; the user types in how they are feeling, and the the website repsonds back with relevant questions to keep the user writing. If you hit "Save Entry," it stores the current entry with the date to a database in Firebase. You can look at your past entries in the "Entries" link at the top (not show in current gif)
 
 Here is a sample video of the current prototype: 
 
 ![](https://github.com/iamrita/enhanced_journal/blob/main/recording_4_3_23.gif)
+
+There is a lot to be explored here. I want the AI interaction here to not just help you feel inspired during one journal session, but to eventually draw on previous things you might have documented in prior sessions. I want it to be able to recognize positive and negative entries, and show some sort of mood tracker. 
+
+Huge stretch - It would be cool if it could save places mentioned in journal entries on a map of some sort. For example, if I say "I went to an amazing restaurant with my boyfriend," it saves the restaurant on Google Maps. Not sure what this would like design wise so this is a big TBD. 
 
 
 ## Setup
@@ -18,3 +22,4 @@ Here is a sample video of the current prototype:
 ## TODO
 
 1. Print out all the entries from the firebase database 
+2. Reach: if the user is in the middle of a journal entry while navigating to the entries page, make sure the journal entry persists 
