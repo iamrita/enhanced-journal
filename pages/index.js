@@ -12,7 +12,7 @@ export default function Home() {
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
   const formattedDate = today.toLocaleDateString("en-US", options);
-  const currentTime = today.getTime()
+  const currentTime = today.getTime();
 
   function submitJournal() {
     firebase
@@ -64,8 +64,10 @@ export default function Home() {
         <link rel="icon" href="/dog.png" />
       </Head>
 
-      <Link className={styles.main} href={`/posts/entries`}>Entries</Link>
       <main className={styles.main}>
+        <Link href={`/posts/entries`}>
+          Entries
+        </Link>
         <h3>Today is {formattedDate}.</h3>
         {result ? (
           <h2 className={styles.result}>{result}</h2>

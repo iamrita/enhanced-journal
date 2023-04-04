@@ -14,3 +14,7 @@ Here is a sample video of the current prototype:
 1. If you don’t have Node.js installed, [install it from here](https://nodejs.org/en/) (Node.js version >= 14.6.0 required)
 
 2. To run the app, run `npm run dev.` 
+
+## TODO
+
+1. Print out all the entries from the firebase database 
