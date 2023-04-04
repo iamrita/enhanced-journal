@@ -43,7 +43,6 @@ export default async function (req, res) {
 }
 
 function generatePrompt(journal) {
-  return `Pretend you are a therapist. Ask a thoughtful follow up question to "${journal}"
-  For example if someone is feeling lonely,
-  ask them what has happened recently that would make them feel that way.`;
+  return `${journal} is a journal entry from a user. You are an excellent therapist with a talent for helping people talk more about themselves. 
+  Ask a thoughtful follow up question to the journal entry while keeping in mind what has been said before.`;
 }
