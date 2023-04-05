@@ -1,9 +1,11 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
-import firebase from "../firebase";
+import app from "../firebase";
 import Link from "next/link";
 import toast from "react-simple-toasts";
+import firebase from 'firebase/app'
+
 
 export default function Home() {
   const [journalEntry, setJournalEntry] = useState("");
@@ -15,8 +17,24 @@ export default function Home() {
   const formattedDate = today.toLocaleDateString("en-US", options);
   const currentTime = today.getTime();
 
-  function submitJournal() {
+  const signInWithGoogle = () => {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope("profile");
+    provider.addScope("email");
     firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        // This gives you a Google Access Token.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        console.log(user)
+      });
+  }
+
+  function submitJournal() {
+    app
       .database()
       .ref("journal-entries")
       .child(currentTime)
@@ -27,7 +45,7 @@ export default function Home() {
         entry: currEntry,
       })
       .catch(alert);
-      toast("Journal Saved!")
+    toast("Journal Saved!");
   }
 
   async function onSubmit(event) {
@@ -69,6 +87,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <Link href={`/posts/entries`}>Entries</Link>
+        <button onClick={signInWithGoogle}>Sign In With Google</button>
         <h3>Today is {formattedDate}.</h3>
         {result ? (
           <h2 className={styles.result}>{result}</h2>
