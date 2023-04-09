@@ -11,6 +11,7 @@ export default function Home() {
   const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
+  const [email, setEmail] = useState();
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -29,9 +30,23 @@ export default function Home() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        console.log(user)
+        console.log(user);
+
+        setEmail(user.email);
       });
   }
+
+  function signOut() {
+    firebase
+    .auth()
+    .signOut()
+    .then(function (result) {
+      setEmail(false);
+      console.log(result);
+    });
+  }
+
+
 
   function submitJournal() {
     app
@@ -88,6 +103,11 @@ export default function Home() {
       <main className={styles.main}>
         <Link href={`/posts/entries`}>Entries</Link>
         <button onClick={signInWithGoogle}>Sign In With Google</button>
+        {email ? (
+          <button onClick={signOut}>Sign Out</button>
+        ) : (
+          <></>
+        )}
         <h3>Today is {formattedDate}.</h3>
         {result ? (
           <h2 className={styles.result}>{result}</h2>
