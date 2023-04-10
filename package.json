@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "antd": "^5.4.0",
     "firebase": "^8.3.1",
     "next": "^13.1.1",
     "openai": "^3.1.0",
