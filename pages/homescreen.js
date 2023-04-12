@@ -3,6 +3,7 @@ import app from "../firebase";
 import { useState } from "react";
 import { Button } from "antd";
 import App from "./app";
+import styles from "./index.module.css";
 
 import firebase from "firebase/app";
 
@@ -39,11 +40,14 @@ export default function HomeScreen() {
 
   return (
     <>
-      <Head>Home Page</Head>
       {email ? (
         <App />
       ) : (
-        <Button onClick={signInWithGoogle}>Sign In With Google</Button>
+        <div className={styles.signin}>
+          <Button className={styles.centerButton} onClick={signInWithGoogle}>
+            Sign In With Google
+          </Button>
+        </div>
       )}
     </>
   );

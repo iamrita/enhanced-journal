@@ -32,8 +32,6 @@ export default function Entries() {
       <main className={styles.main}>
         <Title level={3}>Entries</Title>
         <Link href="/"> Back To Home </Link>
-
-
         {entries.map((entry) => (
           <div key={entry.time}>
             <Title level={2}>Date: {entry.date}</Title>
