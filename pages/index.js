@@ -1,6 +1,7 @@
 import { ConfigProvider } from 'antd';
 import App from './app';
 import Head from "next/head";
+import HomeScreen from './homescreen';
 
 export default function Home() {
   return (
@@ -13,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="favicon.ico" />
       </Head>
       
-      <App />
+      <HomeScreen />
     </ConfigProvider>
   );
 }

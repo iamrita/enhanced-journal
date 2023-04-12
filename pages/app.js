@@ -4,8 +4,8 @@ import styles from "./index.module.css";
 import app from "../firebase";
 import Link from "next/link";
 import toast from "react-simple-toasts";
-import firebase from 'firebase/app';
-import { Button, Typography, Form, Input } from 'antd';
+import firebase from "firebase/app";
+import { Button, Typography, Form, Input } from "antd";
 
 const { Title, Text } = Typography;
 
@@ -36,16 +36,16 @@ export default function App() {
 
         setEmail(user.email);
       });
-  }
+  };
 
   function signOut() {
     firebase
-    .auth()
-    .signOut()
-    .then(function (result) {
-      setEmail(false);
-      console.log(result);
-    });
+      .auth()
+      .signOut()
+      .then(function (result) {
+        setEmail(false);
+        console.log(result);
+      });
   }
 
   function submitJournal() {
@@ -100,20 +100,17 @@ export default function App() {
 
       <main className={styles.main}>
         <Link href={`/posts/entries`}>Entries</Link>
-        {email ? (
-          <Button onClick={signOut}>Sign Out</Button>
-        ) : (
-          <Button onClick={signInWithGoogle}>Sign In With Google</Button>
-        )}
         <Title level={3}>Today is {formattedDate}.</Title>
         {result ? (
-          <Title level={2} className={styles.result}>{result}</Title>
+          <Title level={2} className={styles.result}>
+            {result}
+          </Title>
         ) : (
-          <Title level={2} className={styles.result}>How are you feeling today?</Title>
+          <Title level={2} className={styles.result}>
+            How are you feeling today?
+          </Title>
         )}
-        <Form
-          onFinish={onSubmit}
-        >
+        <Form onFinish={onSubmit}>
           <Form.Item>
             <Input.TextArea
               className={styles.textarea}
@@ -141,9 +138,15 @@ export default function App() {
           </div>
         ))}
 
-        <Button type="primary" size="large" className={styles.save} onClick={(e) => submitJournal(e)}>
+        <Button
+          type="primary"
+          size="large"
+          className={styles.save}
+          onClick={(e) => submitJournal(e)}
+        >
           Save Entry
         </Button>
+        <Button onClick={signOut}>Sign Out</Button>
       </main>
     </>
   );
