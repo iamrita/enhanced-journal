@@ -38,8 +38,6 @@ export default function Entries() {
             </Text>
           </div>
         ))}
-
-        <Link href="/"> Back To Home </Link>
       </main>
     </div>
   );
