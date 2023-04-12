@@ -107,12 +107,16 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-size:30px;
+  font-size:50px;
   font-family: 'Georgia, serif';
   font-weight: bold;
 }
 
 .centerButton {
   border-radius: 4px;
+  margin:30px;
+  background-color: black;
+  color: white;
+  
 }
 

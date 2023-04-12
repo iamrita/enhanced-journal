@@ -55,11 +55,9 @@ export default function HomeScreen() {
                 .callFunction(() => {
                   console.log("String typed out!");
                 })
-                // .pauseFor(2500)
-                // .deleteAll()
-                // .callFunction(() => {
-                //   console.log("All strings were deleted");
-                // })
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString("start writing.")
                 .start();
             }}
           />
