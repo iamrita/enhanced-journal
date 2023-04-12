@@ -9,11 +9,10 @@ import { Button, Typography, Form, Input } from "antd";
 
 const { Title, Text } = Typography;
 
-export default function App() {
+export default function App(props) {
   const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
-  const [email, setEmail] = useState();
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -43,7 +42,6 @@ export default function App() {
       .auth()
       .signOut()
       .then(function (result) {
-        setEmail(false);
         console.log(result);
       });
   }
@@ -99,8 +97,9 @@ export default function App() {
       </Head>
 
       <main className={styles.main}>
-        <Link href={`/posts/entries`}>Entries</Link>
+        <Link href={`/posts/entries`}>Journal</Link>
         <Title level={3}>Today is {formattedDate}.</Title>
+        <h1>Hello {props.myProp}!</h1>
         {result ? (
           <Title level={2} className={styles.result}>
             {result}

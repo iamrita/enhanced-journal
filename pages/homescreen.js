@@ -9,6 +9,8 @@ import firebase from "firebase/app";
 
 export default function HomeScreen() {
   const [email, setEmail] = useState();
+  const [name, setName] = useState()
+  var user
 
   const signInWithGoogle = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -21,10 +23,11 @@ export default function HomeScreen() {
         // This gives you a Google Access Token.
         var token = result.credential.accessToken;
         // The signed-in user info.
-        var user = result.user;
+        user = result.user;
         console.log(user);
 
         setEmail(user.email);
+        setName(user.displayName)
       });
   };
 
@@ -41,7 +44,7 @@ export default function HomeScreen() {
   return (
     <>
       {email ? (
-        <App />
+        <App myProp={name}/> // pass in the user as props here 
       ) : (
         <div className={styles.signin}>
           <Button className={styles.centerButton} onClick={signInWithGoogle}>
