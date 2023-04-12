@@ -5,6 +5,8 @@ import { Button } from "antd";
 import App from "./app";
 import styles from "./index.module.css";
 import Typewriter from "typewriter-effect";
+import { useSpring, a } from "@react-spring/web";
+import animStyles from "./animation.module.css"
 
 import firebase from "firebase/app";
 
@@ -12,6 +14,13 @@ export default function HomeScreen() {
   const [email, setEmail] = useState();
   const [name, setName] = useState();
   var user;
+
+  const [flipped, set] = useState(false);
+  const { transform, opacity } = useSpring({
+    opacity: flipped ? 1 : 0,
+    transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
+    config: { mass: 5, tension: 500, friction: 80 },
+  });
 
   const signInWithGoogle = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -48,7 +57,8 @@ export default function HomeScreen() {
         <App myProp={name} /> // pass in the user as props here
       ) : (
         <div className={styles.signin}>
-          <Typewriter className={styles.typeWriter}
+          {/* <Typewriter
+            className={styles.typeWriter}
             onInit={(typewriter) => {
               typewriter
                 .typeString("your daily journal.")
@@ -60,7 +70,24 @@ export default function HomeScreen() {
                 .typeString("start writing.")
                 .start();
             }}
-          />
+          /> */}
+          <div
+            className={animStyles.container}
+            onClick={() => set((state) => !state)}
+          >
+            <a.div
+              className={`${animStyles.c} ${animStyles.back}`}
+              style={{ opacity: opacity.to((o) => 1 - o), transform }}
+            />
+            <a.div
+              className={`${animStyles.c} ${animStyles.front}`}
+              style={{
+                opacity,
+                transform,
+                rotateX: "180deg",
+              }}
+            />
+          </div>
           <Button className={styles.centerButton} onClick={signInWithGoogle}>
             Sign In With Google
           </Button>
