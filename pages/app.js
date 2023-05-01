@@ -100,8 +100,6 @@ export default function App(props) {
 
       <main className={styles.main}>
         <Link href={`/posts/entries`}>Journal</Link>
-        <Title level={3}>Today is {formattedDate}.</Title>
-        <h1>Hello {props.name}!</h1>
         {result ? (
           <Title level={2} className={styles.result}>
             {result}
@@ -130,15 +128,6 @@ export default function App(props) {
           </Form.Item>
         </Form>
 
-        <br></br>
-        <Title level={2}>My Current Entry: </Title>
-
-        {currEntry.map((entry, i) => (
-          <div key={i}>
-            <Text>{entry}</Text>
-          </div>
-        ))}
-
         <Button
           type="primary"
           size="large"
@@ -147,7 +136,6 @@ export default function App(props) {
         >
           Save Entry
         </Button>
-        <Button onClick={signOut}>Sign Out</Button>
       </main>
     </>
   );
