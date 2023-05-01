@@ -178,6 +178,11 @@ export default function JournalScreen(props) {
         >
           Save Entry
         </Button>
+        <Button
+          className={styles.signOut}
+        >
+          Sign Out
+        </Button>
       </main>
     </>
   );

@@ -107,6 +107,18 @@
   color: #ffffff
 
 }
+.signOut{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color:  #ffffff;
+  color: #000000;
+  margin-top:10px
+
+}
+
 
 .journal{
   font-size: 50px;
