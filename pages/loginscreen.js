@@ -2,15 +2,16 @@ import Head from "next/head";
 import app from "../firebase";
 import { useState } from "react";
 import { Button } from "antd";
-import App from "./app";
+import App from "./journalscreen";
 import styles from "./index.module.css";
 import Typewriter from "typewriter-effect";
 import { useSpring, a } from "@react-spring/web";
 import animStyles from "./animation.module.css"
 
 import firebase from "firebase/app";
+import JournalScreen from "./journalscreen";
 
-export default function HomeScreen() {
+export default function LoginScreen() {
   const [email, setEmail] = useState();
   const [name, setName] = useState();
   var user;
@@ -54,7 +55,7 @@ export default function HomeScreen() {
   return (
     <>
       {email ? (
-        <App name={name} email={email}/> // pass in the user as props here
+        <JournalScreen name={name} email={email}/> // pass in the user as props here
       ) : (
         <div className={styles.signin}>
           <div>

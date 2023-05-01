@@ -9,7 +9,7 @@ import { Button, Typography, Form, Input } from "antd";
 
 const { Title, Text } = Typography;
 
-export default function App(props) {
+export default function JournalScreen(props) {
   const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
