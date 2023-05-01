@@ -54,7 +54,7 @@ export default function HomeScreen() {
   return (
     <>
       {email ? (
-        <App myProp={name} /> // pass in the user as props here
+        <App name={name} email={email}/> // pass in the user as props here
       ) : (
         <div className={styles.signin}>
           {/* <Typewriter
@@ -71,26 +71,12 @@ export default function HomeScreen() {
                 .start();
             }}
           /> */}
-          <div
-            className={animStyles.container}
-            onClick={() => set((state) => !state)}
-          >
-            <a.div
-              className={`${animStyles.c} ${animStyles.back}`}
-              style={{ opacity: opacity.to((o) => 1 - o), transform }}
-            />
-            <a.div
-              className={`${animStyles.c} ${animStyles.front}`}
-              style={{
-                opacity,
-                transform,
-                rotateX: "180deg",
-              }}
-            />
+          <div>
+           <p>Say hello to your new best friend &mdash; <br/><b>your journal.</b></p>
           </div>
-          <Button className={styles.centerButton} onClick={signInWithGoogle}>
+          <button className={styles.centerButton} onClick={signInWithGoogle}>
             Sign In With Google
-          </Button>
+          </button>
         </div>
       )}
     </>
