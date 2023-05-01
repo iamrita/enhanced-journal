@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useState} from "react";
 import styles from "./index.module.css";
 import app from "../firebase";
 import Link from "next/link";
@@ -13,12 +13,27 @@ export default function App(props) {
   const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
-  const [email, setEmail] = useState()
+  const [email, setEmail] = useState();
+  const [isModified, setIsModified] = useState(false);
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
   const formattedDate = today.toLocaleDateString("en-US", options);
   const currentTime = today.getTime();
+
+  const handleTextareaChange = (event) => {
+    setIsModified(true);
+    console.log(isModified);
+    setJournalEntry(event.target.value);
+  };
+
+  const handlePressEnter = (event) => {
+    if (event.keyCode === 13) {
+      // Enter key
+      event.preventDefault();
+      submitEntry();
+    }
+  };
 
   const signInWithGoogle = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -43,7 +58,7 @@ export default function App(props) {
       .auth()
       .signOut()
       .then(function (result) {
-        setEmail(false)
+        setEmail(false);
         console.log(result);
       });
   }
@@ -62,6 +77,35 @@ export default function App(props) {
       .catch(alert);
     toast("Journal Saved!");
   }
+
+  const submitEntry = async () => {
+    currEntry.push(journalEntry);
+    try {
+      const response = await fetch("/api/generate", {
+        // refers to generate.js in the api folder in this project
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ journal: journalEntry }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw (
+          data.error ||
+          new Error(`Request failed with status ${response.status}`)
+        );
+      }
+
+      setResult(data.result);
+      setJournalEntry("");
+    } catch (error) {
+      // Consider implementing your own error handling logic here
+      console.error(error);
+      alert(error.message);
+    }
+  };
 
   async function onSubmit(event) {
     currEntry.push(journalEntry);
@@ -99,38 +143,31 @@ export default function App(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link href={`/posts/entries`}>Journal</Link>
+        <Link className={styles.journal} href={`/posts/entries`}>📓</Link>
         {result ? (
-          <Title level={2} className={styles.result}>
+          <Title
+            level={2}
+            className={isModified ? styles.headerModified : styles.headerNormal}
+          >
             {result}
           </Title>
         ) : (
-          <Title level={2} className={styles.result}>
+          <Title
+            level={2}
+            className={isModified ? styles.headerModified : styles.headerNormal}
+          >
             How are you feeling today?
           </Title>
         )}
-        <Form onFinish={onSubmit}>
-          <Form.Item>
-            <Input.TextArea
-              className={styles.textarea}
-              placeholder="Start typing..."
-              value={journalEntry}
-              onChange={(e) => setJournalEntry(e.target.value)}
-              name="journalEntry"
-              onPressEnter={onSubmit}
-            />
-          </Form.Item>
-
-          <Form.Item>
-            <Button htmlType="submit" className={styles.submit}>
-              Submit Entry
-            </Button>
-          </Form.Item>
-        </Form>
-
+        <textarea
+          className={styles.focused}
+          placeholder="Start typing. Once finished, press Enter to keep the conversation going."
+          value={journalEntry}
+          onChange={(e) => handleTextareaChange(e)}
+          name="journalEntry"
+          onKeyDown={handlePressEnter}
+        />
         <Button
-          type="primary"
-          size="large"
           className={styles.save}
           onClick={(e) => submitJournal(e)}
         >

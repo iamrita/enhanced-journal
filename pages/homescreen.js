@@ -57,21 +57,8 @@ export default function HomeScreen() {
         <App name={name} email={email}/> // pass in the user as props here
       ) : (
         <div className={styles.signin}>
-          {/* <Typewriter
-            className={styles.typeWriter}
-            onInit={(typewriter) => {
-              typewriter
-                .typeString("your daily journal.")
-                .callFunction(() => {
-                  console.log("String typed out!");
-                })
-                .pauseFor(2500)
-                .deleteAll()
-                .typeString("start writing.")
-                .start();
-            }}
-          /> */}
           <div>
+          <p className={styles.journalIcon}>📓</p>
            <p>Say hello to your new best friend &mdash; <br/><b>your journal.</b></p>
           </div>
           <button className={styles.centerButton} onClick={signInWithGoogle}>
