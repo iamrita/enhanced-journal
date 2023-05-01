@@ -56,7 +56,7 @@ export default function Entries() {
       <main className={styles.main}>
         <Title level={3}>Entries</Title>
         <p>Email: {email}</p>
-        <Link href="/"> Back To Home </Link>
+        <Link href="/journalscreen"> Back To Home </Link> {/*not able to make new entries after going back, need to store email across pages*/}
         {entries.map((entry) => (
           <div>
             <Text>

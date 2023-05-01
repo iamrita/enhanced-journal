@@ -6,6 +6,8 @@ import Link from "next/link";
 import toast from "react-simple-toasts";
 import firebase from "firebase/app";
 import { Button, Typography, Form, Input } from "antd";
+import { useRouter } from 'next/router';
+
 
 const { Title, Text } = Typography;
 
@@ -15,6 +17,8 @@ export default function JournalScreen(props) {
   const [currEntry, setCurrEntry] = useState([]);
   const [email, setEmail] = useState();
   const [isModified, setIsModified] = useState(false);
+  const router = useRouter();
+  const { nameProps, emailProps } = router.query;
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -63,14 +67,14 @@ export default function JournalScreen(props) {
   }
 
   function submitJournal() {
-    const newId = props.email.replace(/\./g, "")
+    const newId = emailProps.replace(/\./g, "")
     app
       .database()
       .ref("users")
       .child(newId)
       .set({
-        id: props.email,
-        name: props.name,
+        id: emailProps,
+        name: nameProps,
         date: formattedDate,
         time: currentTime,
         entry: currEntry,
@@ -144,7 +148,7 @@ export default function JournalScreen(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link className={styles.journal} href={{pathname: `/posts/entries`, query: {email: props.email}}}>📓</Link>
+        <Link className={styles.journal} href={{pathname: `/posts/entries`, query: {email: emailProps}}}>📓</Link>
         {result ? (
           <Title
             level={2}

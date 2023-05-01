@@ -6,7 +6,8 @@ import App from "./journalscreen";
 import styles from "./index.module.css";
 import Typewriter from "typewriter-effect";
 import { useSpring, a } from "@react-spring/web";
-import animStyles from "./animation.module.css"
+import animStyles from "./animation.module.css";
+import { useRouter } from "next/router";
 
 import firebase from "firebase/app";
 import JournalScreen from "./journalscreen";
@@ -15,6 +16,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState();
   const [name, setName] = useState();
   var user;
+  const router = useRouter();
 
   const [flipped, set] = useState(false);
   const { transform, opacity } = useSpring({
@@ -39,7 +41,12 @@ export default function LoginScreen() {
 
         setEmail(user.email);
         setName(user.displayName);
+        router.push({
+          pathname: "/journalscreen",
+          query: { nameProps: user.displayName, emailProps: user.email },
+        });
       });
+  
   };
 
   function signOut() {
@@ -54,19 +61,18 @@ export default function LoginScreen() {
 
   return (
     <>
-      {email ? (
-        <JournalScreen name={name} email={email}/> // pass in the user as props here
-      ) : (
-        <div className={styles.signin}>
-          <div>
+      <div className={styles.signin}>
+        <div>
           <p className={styles.journalIcon}>📓</p>
-           <p>Say hello to your new best friend &mdash; <br/><b>your journal.</b></p>
-          </div>
-          <button className={styles.centerButton} onClick={signInWithGoogle}>
-            Sign In With Google
-          </button>
+          <p>
+            Say hello to your new best friend &mdash; <br />
+            <b>your journal.</b>
+          </p>
         </div>
-      )}
+        <button className={styles.centerButton} onClick={signInWithGoogle}>
+          Sign In With Google
+        </button>
+      </div>
     </>
   );
 }
