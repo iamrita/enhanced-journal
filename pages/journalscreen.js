@@ -23,7 +23,6 @@ export default function JournalScreen(props) {
 
   const handleTextareaChange = (event) => {
     setIsModified(true);
-    console.log(isModified);
     setJournalEntry(event.target.value);
   };
 
@@ -64,12 +63,14 @@ export default function JournalScreen(props) {
   }
 
   function submitJournal() {
+    const newId = props.email.replace(/\./g, "")
     app
       .database()
-      .ref("journal-entries")
-      .child(currentTime)
+      .ref("users")
+      .child(newId)
       .set({
-        name: "Amrita Venkatraman",
+        id: props.email,
+        name: props.name,
         date: formattedDate,
         time: currentTime,
         entry: currEntry,
@@ -143,7 +144,7 @@ export default function JournalScreen(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link className={styles.journal} href={`/posts/entries`}>📓</Link>
+        <Link className={styles.journal} href={{pathname: `/posts/entries`, query: {email: props.email}}}>📓</Link>
         {result ? (
           <Title
             level={2}
