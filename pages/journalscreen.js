@@ -66,6 +66,19 @@ export default function JournalScreen(props) {
       });
   }
 
+  const handleSignOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        // Redirect to home page
+        router.push("/");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
+
   function submitJournal() {
     const newId = emailProps.replace(/\./g, "")
     app
@@ -180,6 +193,7 @@ export default function JournalScreen(props) {
         </Button>
         <Button
           className={styles.signOut}
+          onClick={handleSignOut}
         >
           Sign Out
         </Button>
