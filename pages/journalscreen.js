@@ -16,7 +16,6 @@ export default function JournalScreen(props) {
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
   const router = useRouter();
-  const { nameProps } = router.query;
   const emailContext = useContext(EmailContext);
   console.log("email context is " + emailContext);
 
@@ -58,7 +57,7 @@ export default function JournalScreen(props) {
       .child(newId)
       .set({
         id: emailContext,
-        name: nameProps,
+        name: "", // replace with name context
         date: formattedDate,
         time: currentTime,
         entry: currEntry,
@@ -103,7 +102,7 @@ export default function JournalScreen(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link className={styles.journal} href={{ pathname: `/posts/entries` }}>
+        <Link className={styles.journal} href={{ pathname: `/posts/entries`, query: {email: emailContext} }}>
           📓
         </Link>
         {result ? (
