@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
+import Head from "next/head";
+import app from "../firebase";
 import { useState } from "react";
 import styles from "./index.module.css";
+import { useRouter } from "next/router";
 
 import firebase from "firebase/app";
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState();
-  const [name, setName] = useState();
   var user;
   const router = useRouter();
 
@@ -22,8 +22,6 @@ export default function LoginScreen() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         user = result.user;
-        setEmail(user.email);
-        setName(user.displayName);
         router.push({
           pathname: "/journalscreen",
           query: { nameProps: user.displayName, emailProps: user.email },
