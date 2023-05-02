@@ -2,13 +2,12 @@
 
 Based off this [article](https://every.to/chain-of-thought/gpt-3-is-the-best-journal-you-ve-ever-used), I want to create a piece of software that feels like a journal and therapy session combined into one. 
 
-Right now, the web app acts as an interative journal; the user types in how they are feeling, and the the website repsonds back with relevant questions to keep the user writing. If you hit "Save Entry," it stores the current entry with the date to a database in Firebase. You can look at your past entries in the "Entries" link at the top (not shown in current gif).
+Right now, the web app acts as an interative journal; the user types in how they are feeling, and the the website repsonds back with relevant questions to keep the user writing. If you hit "Save Entry," it stores the current entry with the date to a database in Firebase. You can look at your past entries by clicking on the journal icon at the top.
 
 Here is a sample video of the current prototype: 
 
 https://user-images.githubusercontent.com/8162391/235556529-9a00270d-9b9c-4f03-bd3e-8dda56e7343f.mov
 
-For recording gifs: use [this](https://gifcap.dev/).
 
 There is a lot to be explored here. I want the AI interaction here to not just help you feel inspired during one journal session, but to eventually draw on previous things you might have documented in prior sessions. I want it to be able to recognize positive and negative entries, and show some sort of mood tracker. 
 

@@ -1,7 +1,5 @@
 import { ConfigProvider } from 'antd';
-import App from './journalscreen';
 import Head from "next/head";
-import HomeScreen from './loginscreen';
 import LoginScreen from './loginscreen';
 
 export default function Home() {

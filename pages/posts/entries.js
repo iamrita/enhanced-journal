@@ -1,10 +1,10 @@
+import { Skeleton, Typography } from 'antd';
 import Head from "next/head";
-import firebase from "../../firebase";
-import { useEffect, useState } from "react";
-import styles from "../index.module.css";
 import Link from "next/link";
-import { Typography, Skeleton } from 'antd';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from "react";
+import firebase from "../../firebase";
+import styles from "../index.module.css";
 
 const { Title, Text } = Typography;
 

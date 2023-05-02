@@ -1,12 +1,12 @@
-import Head from "next/head";
-import { useState} from "react";
-import styles from "./index.module.css";
-import app from "../firebase";
-import Link from "next/link";
-import toast from "react-simple-toasts";
+import { Button, Typography } from "antd";
 import firebase from "firebase/app";
-import { Button, Typography, Form, Input } from "antd";
+import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from 'next/router';
+import { useState } from "react";
+import toast from "react-simple-toasts";
+import app from "../firebase";
+import styles from "./index.module.css";
 
 
 const { Title, Text } = Typography;
