@@ -2,12 +2,12 @@ import { Button, Typography } from "antd";
 import firebase from "firebase/app";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from 'next/router';
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, useContext } from "react";
 import toast from "react-simple-toasts";
 import app from "../firebase";
 import styles from "./index.module.css";
-
+import { EmailContext } from "../EmailContext";
 
 const { Title, Text } = Typography;
 
@@ -15,10 +15,10 @@ export default function JournalScreen(props) {
   const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
-  const [email, setEmail] = useState();
-  const [isModified, setIsModified] = useState(false);
   const router = useRouter();
-  const { nameProps, emailProps } = router.query;
+  const { nameProps } = router.query;
+  const emailContext = useContext(EmailContext);
+  console.log("email context is " + emailContext);
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -26,7 +26,6 @@ export default function JournalScreen(props) {
   const currentTime = today.getTime();
 
   const handleTextareaChange = (event) => {
-    setIsModified(true);
     setJournalEntry(event.target.value);
   };
 
@@ -52,13 +51,13 @@ export default function JournalScreen(props) {
   };
 
   function submitJournal() {
-    const newId = emailProps.replace(/\./g, "")
+    const newId = emailContext.replace(/\./g, "");
     app
       .database()
       .ref("users")
       .child(newId)
       .set({
-        id: emailProps,
+        id: emailContext,
         name: nameProps,
         date: formattedDate,
         time: currentTime,
@@ -104,21 +103,13 @@ export default function JournalScreen(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link className={styles.journal} href={{pathname: `/posts/entries`, query: {email: emailProps}}}>📓</Link>
+        <Link className={styles.journal} href={{ pathname: `/posts/entries` }}>
+          📓
+        </Link>
         {result ? (
-          <Title
-            level={2}
-            className={isModified ? styles.headerModified : styles.headerNormal}
-          >
-            {result}
-          </Title>
+          <Title level={2}>{result}</Title>
         ) : (
-          <Title
-            level={2}
-            className={isModified ? styles.headerModified : styles.headerNormal}
-          >
-            How are you feeling today?
-          </Title>
+          <Title level={2}>How are you feeling today?</Title>
         )}
         <textarea
           className={styles.focused}
@@ -128,16 +119,10 @@ export default function JournalScreen(props) {
           name="journalEntry"
           onKeyDown={handlePressEnter}
         />
-        <Button
-          className={styles.save}
-          onClick={(e) => submitJournal(e)}
-        >
+        <Button className={styles.save} onClick={(e) => submitJournal(e)}>
           Save Entry
         </Button>
-        <Button
-          className={styles.signOut}
-          onClick={handleSignOut}
-        >
+        <Button className={styles.signOut} onClick={handleSignOut}>
           Sign Out
         </Button>
       </main>
