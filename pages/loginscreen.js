@@ -18,13 +18,6 @@ export default function LoginScreen() {
   var user;
   const router = useRouter();
 
-  const [flipped, set] = useState(false);
-  const { transform, opacity } = useSpring({
-    opacity: flipped ? 1 : 0,
-    transform: `perspective(600px) rotateX(${flipped ? 180 : 0}deg)`,
-    config: { mass: 5, tension: 500, friction: 80 },
-  });
-
   const signInWithGoogle = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope("profile");
@@ -36,9 +29,6 @@ export default function LoginScreen() {
         // This gives you a Google Access Token.
         var token = result.credential.accessToken;
         // The signed-in user info.
-        user = result.user;
-        console.log(user);
-
         setEmail(user.email);
         setName(user.displayName);
         router.push({
@@ -48,16 +38,6 @@ export default function LoginScreen() {
       });
   
   };
-
-  function signOut() {
-    firebase
-      .auth()
-      .signOut()
-      .then(function (result) {
-        setEmail(false);
-        console.log(result);
-      });
-  }
 
   return (
     <>

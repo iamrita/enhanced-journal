@@ -38,34 +38,6 @@ export default function JournalScreen(props) {
     }
   };
 
-  const signInWithGoogle = () => {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope("profile");
-    provider.addScope("email");
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(function (result) {
-        // This gives you a Google Access Token.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        console.log(user);
-
-        setEmail(user.email);
-      });
-  };
-
-  function signOut() {
-    firebase
-      .auth()
-      .signOut()
-      .then(function (result) {
-        setEmail(false);
-        console.log(result);
-      });
-  }
-
   const handleSignOut = () => {
     firebase
       .auth()
@@ -124,35 +96,6 @@ export default function JournalScreen(props) {
       alert(error.message);
     }
   };
-
-  async function onSubmit(event) {
-    currEntry.push(journalEntry);
-    try {
-      const response = await fetch("/api/generate", {
-        // refers to generate.js in the api folder in this project
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ journal: journalEntry }),
-      });
-
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
-      }
-
-      setResult(data.result);
-      setJournalEntry("");
-    } catch (error) {
-      // Consider implementing your own error handling logic here
-      console.error(error);
-      alert(error.message);
-    }
-  }
 
   return (
     <>
