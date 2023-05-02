@@ -29,6 +29,7 @@ export default function LoginScreen() {
         // This gives you a Google Access Token.
         var token = result.credential.accessToken;
         // The signed-in user info.
+        user = result.user;
         setEmail(user.email);
         setName(user.displayName);
         router.push({
