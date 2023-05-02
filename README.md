@@ -6,7 +6,7 @@ Right now, the web app acts as an interative journal; the user types in how they
 
 Here is a sample video of the current prototype: 
 
-![](https://github.com/iamrita/enhanced_journal/blob/main/recording_4_3_23.gif)
+https://user-images.githubusercontent.com/8162391/235556529-9a00270d-9b9c-4f03-bd3e-8dda56e7343f.mov
 
 For recording gifs: use [this](https://gifcap.dev/).
 
