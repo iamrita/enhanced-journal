@@ -17,7 +17,8 @@ export default function JournalScreen(props) {
   const [currEntry, setCurrEntry] = useState([]);
   const router = useRouter();
   const emailContext = useContext(EmailContext);
-  console.log("email context is " + emailContext);
+  const email = sessionStorage.getItem("email")
+  console.log("email is" + sessionStorage.getItem("email"));
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -50,13 +51,13 @@ export default function JournalScreen(props) {
   };
 
   function submitJournal() {
-    const newId = emailContext.replace(/\./g, "");
+    const newId = email.replace(/\./g, "");
     app
       .database()
       .ref("users")
       .child(newId)
       .set({
-        id: emailContext,
+        id: email,
         name: "", // replace with name context
         date: formattedDate,
         time: currentTime,
@@ -102,7 +103,7 @@ export default function JournalScreen(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link className={styles.journal} href={{ pathname: `/posts/entries`, query: {email: emailContext} }}>
+        <Link className={styles.journal} href={{ pathname: `/posts/entries`}}>
           📓
         </Link>
         {result ? (

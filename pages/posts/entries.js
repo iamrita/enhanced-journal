@@ -14,9 +14,9 @@ export default function Entries() {
   const [isLoading, setIsLoading] = useState(true);
   const emailContext = useContext(EmailContext)
   const router = useRouter();
-  const { email } = router.query;
+  const email = sessionStorage.getItem("email")
 
-  console.log("emailContext in entries is"+ emailContext)
+  console.log("email in entries  " + sessionStorage.getItem("email"))
 
   useEffect(() => {
     const database = firebase.database();

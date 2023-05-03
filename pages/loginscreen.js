@@ -1,6 +1,6 @@
 import Head from "next/head";
 import app from "../firebase";
-import { useState } from "react";
+import { useState,  } from "react";
 import styles from "./index.module.css";
 import { useRouter } from "next/router";
 import { EmailContext } from "../EmailContext";
@@ -24,6 +24,9 @@ export default function LoginScreen() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         user = result.user;
+        // set session storage here 
+        sessionStorage.setItem("email", user.email)
+        sessionStorage.setItem("name", user.displayName)
         console.log(user.email);
         setEmail(user.email);
       });
@@ -49,8 +52,6 @@ export default function LoginScreen() {
 
   // Render the JournalScreen page once email is set
   return (
-    <EmailContext.Provider value={email}>
       <JournalScreen/>
-    </EmailContext.Provider>
   );
 }
