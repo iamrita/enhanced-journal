@@ -12,11 +12,7 @@ const { Title, Text } = Typography;
 export default function Entries() {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const emailContext = useContext(EmailContext)
-  const router = useRouter();
   const email = sessionStorage.getItem("email")
-
-  console.log("email in entries  " + sessionStorage.getItem("email"))
 
   useEffect(() => {
     const database = firebase.database();
@@ -26,10 +22,11 @@ export default function Entries() {
 
     ref.orderByKey().equalTo(newEmail).on('value', (snapshot) => {
       if (snapshot.exists()) {
-        const data = snapshot.val()[newEmail].entry
-        setEntries(data)
+        const data = snapshot.val()[newEmail].journal
+        console.log(data)
+       // setEntries(data)
         setIsLoading(false)
-        console.log(snapshot.val()[newEmail].entry);
+      //  console.log(snapshot.val()[newEmail].entry);
       } else {
         console.log(`User with email ${email} does not exist`);
       }
@@ -53,14 +50,14 @@ export default function Entries() {
       <main className={styles.main}>
         <Title level={3}>Entries</Title>
         <p>Email: {email}</p>
-        <Link href={{pathname: `/journalscreen`}}> Back To Home </Link> {/*not able to make new entries after going back, need to store email across pages*/}
-        {entries.map((entry) => (
+        <Link href={{pathname: `/journalscreen`}}> Back To Home </Link> 
+        {/* {entries.map((entry) => (
           <div>
             <Text>
               <b>Entry:</b> {entry}
             </Text>
           </div>
-        ))}
+        ))} */}
         <Skeleton active loading={isLoading}/> 
       </main>
     </div>

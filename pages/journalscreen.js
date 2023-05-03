@@ -16,10 +16,8 @@ export default function JournalScreen(props) {
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
   const router = useRouter();
-  const emailContext = useContext(EmailContext);
   const email = sessionStorage.getItem("email")
   const name = sessionStorage.getItem("name")
-  console.log("email is" + sessionStorage.getItem("email"));
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -53,18 +51,16 @@ export default function JournalScreen(props) {
 
   function submitJournal() {
     const newId = email.replace(/\./g, "");
-    app
+    const session = {date: formattedDate, ts: currentTime, entries: currEntry}
+   // const user = {id: email, name: name, sessions: sessions}
+    const ref = app
       .database()
       .ref("users")
       .child(newId)
-      .set({
-        id: email,
-        name: name, // replace with name context
-        date: formattedDate,
-        time: currentTime,
-        entry: currEntry,
-      })
-      .catch(alert);
+      .child("sessions")
+
+    const newSessionRef = ref.push()
+    newSessionRef.set(session)
     toast("Journal Saved!");
   }
 
