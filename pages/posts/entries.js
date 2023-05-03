@@ -27,7 +27,7 @@ export default function Entries() {
           if (snapshot.exists()) {
             const data = snapshot.val()[newEmail].sessions;
             console.log(data);
-            const localEntries = []
+            const localEntries = [];
             for (const key in data) {
               const obj = data[key];
               const date = obj.date;
@@ -57,8 +57,9 @@ export default function Entries() {
         {entries.map((entry) => (
           <div>
             <Text>
-              <b>Date: </b> {entry.date}<br></br>
-              <b>Entry: </b> {entry.entries}  
+              <b>Date: </b> {entry.date}
+              <br></br>
+              <b>Entry: </b> {entry.entries}
             </Text>
           </div>
         ))}

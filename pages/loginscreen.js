@@ -1,6 +1,6 @@
 import Head from "next/head";
 import app from "../firebase";
-import { useState,  } from "react";
+import { useState } from "react";
 import styles from "./index.module.css";
 import { useRouter } from "next/router";
 import { EmailContext } from "../EmailContext";
@@ -10,7 +10,8 @@ import JournalScreen from "./journalscreen";
 
 export default function LoginScreen() {
   var user;
-  const [email, setEmail] = useState("");
+  const router = useRouter();
+
 
   const signInWithGoogle = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
@@ -24,15 +25,13 @@ export default function LoginScreen() {
         var token = result.credential.accessToken;
         // The signed-in user info.
         user = result.user;
-        // set session storage here 
-        sessionStorage.setItem("email", user.email)
-        sessionStorage.setItem("name", user.displayName)
-        console.log(user.email);
-        setEmail(user.email);
+        // set session storage here
+        sessionStorage.setItem("email", user.email);
+        sessionStorage.setItem("name", user.displayName);
+        router.push("/journalscreen")
       });
   };
 
-  if (!email) {
     // Render the login screen if email is not set yet
     return (
       <div className={styles.signin}>
@@ -48,10 +47,5 @@ export default function LoginScreen() {
         </button>
       </div>
     );
-  }
-
-  // Render the JournalScreen page once email is set
-  return (
-      <JournalScreen/>
-  );
+  
 }
