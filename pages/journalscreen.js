@@ -18,6 +18,7 @@ export default function JournalScreen(props) {
   const router = useRouter();
   const emailContext = useContext(EmailContext);
   const email = sessionStorage.getItem("email")
+  const name = sessionStorage.getItem("name")
   console.log("email is" + sessionStorage.getItem("email"));
 
   const today = new Date();
@@ -58,7 +59,7 @@ export default function JournalScreen(props) {
       .child(newId)
       .set({
         id: email,
-        name: "", // replace with name context
+        name: name, // replace with name context
         date: formattedDate,
         time: currentTime,
         entry: currEntry,
