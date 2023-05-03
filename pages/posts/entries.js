@@ -10,9 +10,9 @@ const { Title, Text } = Typography;
 export default function Entries() {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const email = sessionStorage.getItem("email");
 
   useEffect(() => {
+    const email = sessionStorage.getItem("email");
     const database = firebase.database();
     let ref = database.ref("users");
 
@@ -53,7 +53,6 @@ export default function Entries() {
       </Head>
       <main className={styles.main}>
         <Title level={3}>Entries</Title>
-        <p>Email: {email}</p>
         <Link href={{ pathname: `/journalscreen` }}> Back To Home </Link>
         {entries.map((entry) => (
           <div>
