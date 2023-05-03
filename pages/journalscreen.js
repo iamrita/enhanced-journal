@@ -3,11 +3,10 @@ import firebase from "firebase/app";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useContext } from "react";
+import { useState} from "react";
 import toast from "react-simple-toasts";
 import app from "../firebase";
 import styles from "./index.module.css";
-import { EmailContext } from "../EmailContext";
 
 const { Title, Text } = Typography;
 
