@@ -26,7 +26,6 @@ export default function Entries() {
         (snapshot) => {
           if (snapshot.exists()) {
             const data = snapshot.val()[newEmail].sessions;
-            console.log(data);
             const localEntries = [];
             for (const key in data) {
               const obj = data[key];
@@ -53,7 +52,7 @@ export default function Entries() {
       </Head>
       <main className={styles.main}>
         <Title level={3}>Entries</Title>
-        <Link href={{ pathname: `/journalscreen` }}> Back To Home </Link>
+       
         {entries.map((entry) => (
           <div>
             <Text>
@@ -63,6 +62,7 @@ export default function Entries() {
             </Text>
           </div>
         ))}
+        <Link href={{ pathname: `/journalscreen` }}> Back To Home </Link>
         <Skeleton active loading={isLoading} />
       </main>
     </div>

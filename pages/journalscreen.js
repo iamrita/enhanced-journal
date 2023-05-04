@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState} from "react";
 import toast from "react-simple-toasts";
 import app from "../firebase";
 import styles from "./index.module.css";
@@ -15,8 +15,8 @@ export default function JournalScreen(props) {
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
   const router = useRouter();
-  const email = sessionStorage.getItem("email");
-  const name = sessionStorage.getItem("name");
+  const email = sessionStorage.getItem("email")
+  const name = sessionStorage.getItem("name")
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -50,16 +50,16 @@ export default function JournalScreen(props) {
 
   function submitJournal() {
     const newId = email.replace(/\./g, "");
-    const session = {
-      date: formattedDate,
-      ts: currentTime,
-      entries: currEntry,
-    };
-    // const user = {id: email, name: name, sessions: sessions}
-    const ref = app.database().ref("users").child(newId).child("sessions");
+    const session = {date: formattedDate, ts: currentTime, entries: currEntry}
+   // const user = {id: email, name: name, sessions: sessions}
+    const ref = app
+      .database()
+      .ref("users")
+      .child(newId)
+      .child("sessions")
 
-    const newSessionRef = ref.push();
-    newSessionRef.set(session);
+    const newSessionRef = ref.push()
+    newSessionRef.set(session)
     toast("Journal Saved!");
   }
 
@@ -99,7 +99,7 @@ export default function JournalScreen(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link className={styles.journal} href={{ pathname: `/posts/entries` }}>
+        <Link className={styles.journal} href={{ pathname: `/posts/entries`}}>
           📓
         </Link>
         {result ? (
@@ -109,7 +109,7 @@ export default function JournalScreen(props) {
         )}
         <textarea
           className={styles.focused}
-          placeholder="Start typing. Once finished, press Enter to keep the conversation going. When you're done, hit `Save Entry` below."
+          placeholder="Start typing. Once finished, press Enter to keep the conversation going. When you're done, hit `Save Entry`."
           value={journalEntry}
           onChange={(e) => handleTextareaChange(e)}
           name="journalEntry"
