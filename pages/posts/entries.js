@@ -52,8 +52,7 @@ export default function Entries() {
       </Head>
       <main className={styles.main}>
         <Title level={3}>Entries</Title>
-       
-        {entries.map((entry) => (
+        {entries.map((entry) => ( // each child should have unique key prop 
           <div>
             <Text>
               <b>Date: </b> {entry.date}
