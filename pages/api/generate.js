@@ -43,6 +43,9 @@ export default async function (req, res) {
 }
 
 function generatePrompt(journal) {
-  return `${journal} is a journal entry from a user. You are an excellent therapist with a talent for helping people talk more about themselves. 
-  Ask a thoughtful follow up question to the journal entry while keeping in mind what has been said before.`;
+  return `The following text delimited by three quotes is a journal entry from a user.
+  You are an excellent therapist with a talent for helping people talk more about themselves. 
+  Ask a thoughtful follow up question to the journal entry while keeping in mind what has been said before.
+  """${journal}"""
+  `;
 }
