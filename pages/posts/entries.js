@@ -1,16 +1,17 @@
 import { Skeleton, Typography } from "antd";
-import Head from "next/head";
 import Link from "next/link";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import firebase from "../../firebase";
 import styles from "../index.module.css";
+import Image from "next/image";
+import isEmpty from "lodash/isEmpty";
 
 const { Title, Text } = Typography;
 
 export default function Entries() {
   const [entries, setEntries] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currEntry, setCurrEntry] = useState([]);
+  const [currEntry, setCurrEntry] = useState({});
 
   const getDateRepresentation = (entry) => {
     const date = new Date(entry.date);
@@ -78,13 +79,73 @@ export default function Entries() {
       );
   }, []);
 
+  const nextDateEntry = () => {
+    const index = entries.indexOf(currEntry);
+    if (index === entries.length - 1) {
+      return;
+    }
+    setCurrEntry(entries[index + 1]);
+  };
+
+  const prevDateEntry = () => {
+    const index = entries.indexOf(currEntry);
+    if (index === 0) {
+      return;
+    }
+    setCurrEntry(entries[index - 1]);
+  };
+
   useEffect(() => {
     setCurrEntry(entries[0]);
   }, [entries]);
 
   return (
     <div>
-      <header className={styles.header}></header>;
+      <header className={styles.header}>
+        <div className={styles.headerContent}>
+          <div
+            className={styles.dateArrow}
+            onClick={prevDateEntry}
+            role="button"
+            tabIndex="0"
+            aria-label="Previous Date"
+          >
+            <Image
+              src="/backwardArrow.svg"
+              width="17"
+              height="12"
+              alt="Next Date Button"
+            />
+          </div>
+          <div className={styles.headerDateContainer}>
+            <div className={styles.headerDateContent}>
+              {!isEmpty(currEntry) && (
+                <>
+                  <div className={styles.headerDate}>{currEntry?.date}</div>
+                  <div className={styles.headerEntry}>
+                    Entry #{entries.indexOf(currEntry) + 1}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <div
+            className={styles.dateArrow}
+            onClick={nextDateEntry}
+            role="button"
+            tabIndex="0"
+            aria-label="Next Date"
+          >
+            <Image
+              src="/forwardArrow.svg"
+              width="17"
+              height="12"
+              alt="Past Date Button"
+            />
+          </div>
+        </div>
+      </header>
+      ;
       <div className={styles.sidebar}>
         <div className={styles.homeLogo}>
           <Link href={{ pathname: `/journalscreen` }} className={styles.logo}>
@@ -93,18 +154,12 @@ export default function Entries() {
         </div>
         <div className={styles.sidebarContent}>
           <div className={styles.addEntryPlus}>
-            <svg
+            <Image
+              src="/plus.svg"
               width="12"
               height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5.99935 11.8332C5.76324 11.8332 5.55838 11.7464 5.38477 11.5728C5.21115 11.3991 5.12435 11.1965 5.12435 10.9647V6.87484H1.03449C0.802731 6.87484 0.600043 6.78803 0.426432 6.61442C0.252821 6.44081 0.166016 6.23595 0.166016 5.99984C0.166016 5.76373 0.252821 5.55887 0.426432 5.38525C0.600043 5.21164 0.802731 5.12484 1.03449 5.12484H5.12435V1.03498C5.12435 0.803219 5.21115 0.600532 5.38477 0.426921C5.55838 0.253309 5.76324 0.166504 5.99935 0.166504C6.23546 0.166504 6.44032 0.253309 6.61393 0.426921C6.78754 0.600532 6.87435 0.803219 6.87435 1.03498V5.12484H10.9642C11.196 5.12484 11.3987 5.21164 11.5723 5.38525C11.7459 5.55887 11.8327 5.76373 11.8327 5.99984C11.8327 6.23595 11.7459 6.44081 11.5723 6.61442C11.3987 6.78803 11.196 6.87484 10.9642 6.87484H6.87435V10.9647C6.87435 11.1965 6.78754 11.3991 6.61393 11.5728C6.44032 11.7464 6.23546 11.8332 5.99935 11.8332Z"
-                fill="#232323"
-              />
-            </svg>
+              alt="Add Entry Button"
+            />
           </div>
           {entries.map((entry) => {
             return (
