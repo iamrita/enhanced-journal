@@ -19,6 +19,7 @@ export default async function (req, res) {
   }
 
   const journal = req.body.journal || "";
+  const theme = req.body.theme || ""
   console.log(req.body)
 
   try {
@@ -26,9 +27,16 @@ export default async function (req, res) {
       model: "gpt-3.5-turbo-instruct",
       prompt: generatePrompt(journal),
       temperature: 0.6, // consider adjusting this
-      max_tokens: 300, // lessen 
+      max_tokens: 500, // lessen 
     });
-    res.status(200).json({ result: completion.data.choices[0].text });
+    const image =
+      await openai.createImage({
+        prompt: theme,
+        n: 1,
+        size: "512x512",
+      });
+    console.log("amrita " + image.data.data[0].url);
+    res.status(200).json({ result: completion.data.choices[0].text, image: image.data.data[0].url });
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
@@ -43,11 +51,9 @@ export default async function (req, res) {
       });
     }
   }
+
 }
 
 function generatePrompt(journal) {
-  return `The following text delimited by three quotes is a request from a user who wants to plan their wedding.
-  You are an excellent wedding planner with an eye for keeping budget low and beign eco friendly. Use the following text to suggest some ideas. 
-  """${journal}"""
-  `;
+  return journal;
 }
