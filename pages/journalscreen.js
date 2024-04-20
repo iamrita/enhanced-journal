@@ -67,25 +67,29 @@ export default function JournalScreen(props) {
       });
   };
 
-  function submitJournal() {
-    const newId = email.replace(/\./g, "");
-    const session = { date: formattedDate, ts: currentTime, entries: currEntry }
-    // const user = {id: email, name: name, sessions: sessions}
-    const ref = app
-      .database()
-      .ref("users")
-      .child(newId)
-      .child("sessions")
-
-    const newSessionRef = ref.push()
-    newSessionRef.set(session)
-    toast("Journal Saved!");
+  function optionOne(text) {
+    console.log("amrita " + text)
+    let firstPeriod = text.indexOf("1")
+    let firstOption = text.substring(firstPeriod, text.indexOf("2"))
+    let secondOption = text.substring(text.indexOf("2"), text.indexOf("3"))
+    let thirdOption = text.substring(text.indexOf("3"))
+    return firstOption
   }
 
+  function optionTwo(text) {
+    let secondOption = text.substring(text.indexOf("2"), text.indexOf("3"))
+
+    return secondOption
+  }
+
+  function optionThree(text) {
+    let thirdOption = text.substring(text.indexOf("3"))
+    return thirdOption
+  }
   const submitEntry = async () => {
     // currEntry.push(journalEntry);
     let text = `Give me three wedding suggestions for under ${budget} dollars in ${location} for ${number} people with the following themes:
-    ${weddingThemes}. Number and format it nicely. `
+    ${weddingThemes}. Number each option`
     try {
       const response = await fetch("/api/generate", {
         // refers to generate.js in the api folder in this project
@@ -103,10 +107,8 @@ export default function JournalScreen(props) {
           new Error(`Request failed with status ${response.status}`)
         );
       }
-
-      setResult(data.result);
+      setResult(data.result)
       setPicture(data.image)
-      setJournalEntry("");
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -172,7 +174,10 @@ export default function JournalScreen(props) {
           <></>
         )}
 
-        <div className={styles.response}>{result}</div>
+        {result && <div className={styles.response}>
+          <ol>{optionOne(result)}</ol>
+          <ol>{optionTwo(result)}</ol>
+          <ol>{optionThree(result)}</ol></div>}
         <Button className={styles.signOut} onClick={handleSignOut}>
           Sign Out
         </Button>

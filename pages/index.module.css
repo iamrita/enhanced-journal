@@ -7,6 +7,14 @@
   padding: 60px 30px 30px 120px;
 }
 
+
+.list {
+  list-style-type: decimal;
+  margin-bottom: 10px;
+  font-size: 50px;
+
+}
+
 .main h3 {
   font-size: 32px;
   line-height: 40px;
@@ -46,7 +54,7 @@
   background-color: #f8f5f2;
 }
 
-.journalIcon{
+.journalIcon {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,8 +63,9 @@
 }
 
 .response {
-  font-size:25px
+  font-size: 25px
 }
+
 .centerButton {
   display: flex;
   flex-direction: row;
@@ -69,26 +78,25 @@
   background: #232323;
   border-radius: 1000px;
   font-size: 20px;
-  color:#ffffff
+  color: #ffffff
 }
 
-.centerButton:hover{
-  cursor:pointer
+.centerButton:hover {
+  cursor: pointer
 }
 
 .focused {
   outline: none;
   border: none;
   cursor: text;
-  width:100%;
+  width: 100%;
 
 }
 
 .focused:focus {
-  border:none;
+  border: none;
   outline: none;
-  width:100%
-
+  width: 100%
 }
 
 .headerNormal {
@@ -102,30 +110,29 @@
 }
 
 
-.save{
+.save {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
   margin-top: 350px;
-  background-color:  #232323;
+  background-color: #232323;
   color: #ffffff
-
 }
-.signOut{
+
+.signOut {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color:  #ffffff;
+  background-color: #ffffff;
   color: #000000;
-  margin-top:10px
-
+  margin-top: 10px
 }
 
-.journal{
+.journal {
   font-size: 50px;
   text-decoration: none;
 }
@@ -151,13 +158,15 @@
     flex-direction: row;
     align-items: center;
 
-    .dateArrow{
+    .dateArrow {
       cursor: pointer;
     }
-    .headerDateContainer{
+
+    .headerDateContainer {
       width: 100%;
       margin-left: 60px;
-      .headerDate{
+
+      .headerDate {
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 700;
@@ -165,7 +174,8 @@
         line-height: 21px;
         color: #232323;
       }
-      .headerEntry{
+
+      .headerEntry {
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
@@ -176,7 +186,8 @@
     }
   }
 }
-.sidebar{
+
+.sidebar {
   position: fixed;
   top: 0;
   left: 0;
@@ -186,7 +197,8 @@
   display: flex;
   border-right: 1px solid rgba(35, 35, 35, 0.25);
   height: 100%;
-  .homeLogo{
+
+  .homeLogo {
     position: fixed;
     top: 0;
     left: 0;
@@ -194,6 +206,7 @@
     height: 60px;
     width: 90px;
     border-bottom: 1px solid rgba(35, 35, 35, 0.25);
+
     .logo {
       font-size: 24px;
       width: 100%;
@@ -204,7 +217,8 @@
       text-decoration: none;
     }
   }
-  .sidebarContent{
+
+  .sidebarContent {
     margin-top: 60px;
     display: flex;
     width: 100%;
@@ -212,6 +226,7 @@
     flex-direction: column;
     align-items: center;
   }
+
   .date {
     font-family: 'Inter';
     font-style: normal;
@@ -219,6 +234,7 @@
     font-size: 20px;
     line-height: 24px;
   }
+
   .month {
     font-family: 'Inter';
     font-style: normal;
@@ -226,6 +242,7 @@
     font-size: 12px;
     line-height: 15px;
   }
+
   .dateBoxes {
     margin: 10px;
     display: flex;
@@ -239,7 +256,8 @@
     justify-content: center;
     cursor: pointer;
   }
-  .addEntryPlus{
+
+  .addEntryPlus {
     margin-top: 10px;
     display: flex;
     align-items: center;
@@ -247,7 +265,8 @@
     justify-content: center;
     min-height: 48px;
   }
-  .active{
+
+  .active {
     background: #232323;
     color: #FFFFFE;
   }
