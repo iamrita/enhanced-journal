@@ -3,6 +3,8 @@
 
 
 
+/* New styles */
+
 .chat {
   height: 100vh;
   overflow: hidden;
@@ -20,25 +22,10 @@
   border-top: 2px solid #EEE;
 }
 
-
 .footer-chat .icon {
   margin-left: 30px;
   color: #C0C0C0;
-
-
-.list {
-  list-style-type: decimal;
-  margin-bottom: 10px;
-  font-size: 50px;
-
-}
-
-.main h3 {
-  font-size: 32px;
-  line-height: 40px;
-  font-weight: bold;
-  color: #202123;
-
+  font-size: 14pt;
 }
 
 .footer-chat .send {
@@ -82,7 +69,6 @@
   font-size: 13pt;
 }
 
-
 .footer-chat input::-moz-placeholder {
   color: #C0C0C0;
   font-size: 13pt;
@@ -105,13 +91,9 @@
   background-color: #FFF;
   height: 90px;
   box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
-
-.journalIcon {
-
   display: flex;
   align-items: center;
 }
-
 
 .header-chat .icon {
   margin-left: 30px;
@@ -138,16 +120,8 @@
 }
 
 .messages-chat .message {
-
-.response {
-  font-size: 25px
-}
-
-.centerButton {
-
   display: flex;
   align-items: center;
-
   margin-bottom: 8px;
 }
 
@@ -178,34 +152,6 @@
   color: lightgrey;
   margin-bottom: 10px;
   margin-left: 85px;
-
-  padding: 24px;
-  gap: 10px;
-  width: 317px;
-  height: 71px;
-  background: #232323;
-  border-radius: 1000px;
-  font-size: 20px;
-  color: #ffffff
-}
-
-.centerButton:hover {
-  cursor: pointer
-}
-
-.focused {
-  outline: none;
-  border: none;
-  cursor: text;
-  width: 100%;
-
-}
-
-.focused:focus {
-  border: none;
-  outline: none;
-  width: 100%
-
 }
 
 .response-time {
@@ -223,18 +169,13 @@
   background-color: #e3effd !important;
 }
 
-
 /* Footer */
 .footer-chat {
   width: calc(100% - 26px);;
   overflow: hidden;
   height: 80px;
-
-.save {
-
   display: flex;
   align-items: center;
-
   position: absolute;
   bottom: 0;
   background-color: transparent;
@@ -314,163 +255,5 @@
 
 .button:hover {
   background-color: #375a97;
-}
-
-
-  width: 100%;
-  margin-top: 350px;
-  background-color: #232323;
-  color: #ffffff
-}
-
-.signOut {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #ffffff;
-  color: #000000;
-  margin-top: 10px
-}
-
-.journal {
-  font-size: 50px;
-  text-decoration: none;
-}
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 90px;
-  right: 0;
-  height: 60px;
-  background-color: #F8F5F2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(35, 35, 35, 0.25);
-
-  .headerContent {
-    margin: 0 24px;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-
-    .dateArrow {
-      cursor: pointer;
-    }
-
-    .headerDateContainer {
-      width: 100%;
-      margin-left: 60px;
-
-      .headerDate {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 18px;
-        line-height: 21px;
-        color: #232323;
-      }
-
-      .headerEntry {
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 14px;
-        color: #232323BF;
-      }
-    }
-  }
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 90px;
-  background-color: #F8F5F2;
-  display: flex;
-  border-right: 1px solid rgba(35, 35, 35, 0.25);
-  height: 100%;
-
-  .homeLogo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    width: 90px;
-    border-bottom: 1px solid rgba(35, 35, 35, 0.25);
-
-    .logo {
-      font-size: 24px;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-decoration: none;
-    }
-  }
-
-  .sidebarContent {
-    margin-top: 60px;
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .date {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 24px;
-  }
-
-  .month {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-  }
-
-  .dateBoxes {
-    margin: 10px;
-    display: flex;
-    width: 48px;
-    min-height: 48px;
-    background: rgba(35, 35, 35, 0.05);
-    border: 0.5px solid rgba(35, 35, 35, 0.5);
-    border-radius: 4px;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  .addEntryPlus {
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 48px;
-  }
-
-  .active {
-    background: #232323;
-    color: #FFFFFE;
-  }
 }
 

@@ -1,4 +1,4 @@
-import { Button, Typography, theme } from "antd";
+import { Button, Typography } from "antd";
 import firebase from "firebase/app";
 import Head from "next/head";
 import Link from "next/link";
@@ -15,18 +15,9 @@ export default function JournalScreen(props) {
   const [journalEntry, setJournalEntry] = useState("");
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
-  const [budget, setBudget] = useState("")
-  const [location, setLocation] = useState("")
-  const [number, setNumber] = useState("")
-  const [weddingThemes, setWeddingThemes] = useState("")
   const router = useRouter();
-
   // const email = sessionStorage.getItem("email")
   // const name = sessionStorage.getItem("name")
-
-  const email = sessionStorage.getItem("email")
-  const name = sessionStorage.getItem("name")
-  const [picture, setPicture] = useState("")
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -37,26 +28,12 @@ export default function JournalScreen(props) {
     setJournalEntry(event.target.value);
   };
 
-  const handleBudget = (event) => {
-    setBudget(event.target.value)
-  }
-
-  const handleLocation = (event) => {
-    setLocation(event.target.value)
-  }
-
-  const handleNumber = (event) => {
-    setNumber(event.target.value)
-  }
-
-  const handleTheme = (event) => {
-    setWeddingThemes(event.target.value)
-  }
-
-
   const handlePressEnter = (event) => {
-    submitEntry();
-
+    if (event.keyCode === 13) {
+      // Enter key
+      event.preventDefault();
+      submitEntry();
+    }
   };
 
   // const handleSignOut = () => {
@@ -72,29 +49,23 @@ export default function JournalScreen(props) {
   //     });
   // };
 
-  function optionOne(text) {
-    console.log("amrita " + text)
-    let firstPeriod = text.indexOf("1")
-    let firstOption = text.substring(firstPeriod, text.indexOf("2"))
-    let secondOption = text.substring(text.indexOf("2"), text.indexOf("3"))
-    let thirdOption = text.substring(text.indexOf("3"))
-    return firstOption
+  function submitJournal() {
+    const newId = email.replace(/\./g, "");
+    const session = { date: formattedDate, ts: currentTime, entries: currEntry }
+    // const user = {id: email, name: name, sessions: sessions}
+    const ref = app
+      .database()
+      .ref("users")
+      .child(newId)
+      .child("sessions")
+
+    const newSessionRef = ref.push()
+    newSessionRef.set(session)
+    toast("Journal Saved!");
   }
 
-  function optionTwo(text) {
-    let secondOption = text.substring(text.indexOf("2"), text.indexOf("3"))
-
-    return secondOption
-  }
-
-  function optionThree(text) {
-    let thirdOption = text.substring(text.indexOf("3"))
-    return thirdOption
-  }
   const submitEntry = async () => {
-    // currEntry.push(journalEntry);
-    let text = `Give me three wedding suggestions for under ${budget} dollars in ${location} for ${number} people with the following themes:
-    ${weddingThemes}. Number each option`
+    currEntry.push(journalEntry);
     try {
       const response = await fetch("/api/generate", {
         // refers to generate.js in the api folder in this project
@@ -102,7 +73,7 @@ export default function JournalScreen(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ journal: text, theme: weddingThemes }),
+        body: JSON.stringify({ journal: journalEntry }),
       });
 
       const data = await response.json();
@@ -112,8 +83,9 @@ export default function JournalScreen(props) {
           new Error(`Request failed with status ${response.status}`)
         );
       }
-      setResult(data.result)
-      setPicture(data.image)
+
+      setResult(data.result);
+      setJournalEntry("");
     } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
@@ -127,7 +99,6 @@ export default function JournalScreen(props) {
         <title>Enhanced Journal</title>
         {/*  */}
       </Head>
-
      
     <section className={`${styles.chat} ${styles.fullScreen}`}>
       {/* Header */}
@@ -136,66 +107,6 @@ export default function JournalScreen(props) {
         <p className={`${styles.name}`}>Jane the wedding planner</p>
         <i className={`icon clickable fa fa-ellipsis-h ${styles.right}`} aria-hidden="true"></i>
         <Button >
-
-
-      <main className={styles.main}>
-
-        <Title level={2}>Hi there! It's Jane, your wedding planner. It's a pleasure to meet you! Let's get to know each other.</Title>
-
-        {/* <textarea
-          className={styles.focused}
-          placeholder="Start typing. Once finished, press Enter to keep the conversation going. When you're done, hit `Save Entry`."
-          value={journalEntry}
-          onChange={(e) => handleTextareaChange(e)}
-          name="journalEntry"
-          onKeyDown={handlePressEnter}
-        /> */}
-        <Title level={2}>What is your budget for this wedding?</Title>
-
-        <textarea
-          className={styles.focused}
-          value={budget}
-          onChange={(e) => handleBudget(e)}
-        />
-
-        <Title level={2}>How many people do you expect coming?</Title>
-
-        <textarea
-          className={styles.focused}
-          value={number}
-          onChange={(e) => handleNumber(e)}
-        />
-
-        <Title level={2}>Where are you located?</Title>
-
-        <textarea
-          className={styles.focused}
-          value={location}
-          onChange={(e) => handleLocation(e)}
-        />
-
-
-        <Title level={2}>What general themes are you aiming for?</Title>
-
-        <textarea
-          className={styles.focused}
-          value={weddingThemes}
-          onChange={(e) => handleTheme(e)}
-        />
-
-        <Button className={styles.signOut} onClick={handlePressEnter}>Plan my wedding!</Button>
-        {picture.length > 0 ? (
-          <img className="result-image" src={picture} alt="result" />
-        ) : (
-          <></>
-        )}
-
-        {result && <div className={styles.response}>
-          <ol>{optionOne(result)}</ol>
-          <ol>{optionTwo(result)}</ol>
-          <ol>{optionThree(result)}</ol></div>}
-        <Button className={styles.signOut} onClick={handleSignOut}>
-
           Sign Out
         </Button>
       </div>
