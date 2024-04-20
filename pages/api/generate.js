@@ -1,4 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
+require('dotenv').config();
+
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -17,13 +19,14 @@ export default async function (req, res) {
   }
 
   const journal = req.body.journal || "";
+  console.log(req.body)
 
   try {
     const completion = await openai.createCompletion({
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo-instruct",
       prompt: generatePrompt(journal),
       temperature: 0.6, // consider adjusting this
-      max_tokens: 1000,
+      max_tokens: 300, // lessen 
     });
     res.status(200).json({ result: completion.data.choices[0].text });
   } catch (error) {
@@ -43,9 +46,8 @@ export default async function (req, res) {
 }
 
 function generatePrompt(journal) {
-  return `The following text delimited by three quotes is a journal entry from a user.
-  You are an excellent therapist with a talent for helping people talk more about themselves. 
-  Ask a thoughtful follow up question to the journal entry while keeping in mind what has been said before.
+  return `The following text delimited by three quotes is a request from a user who wants to plan their wedding.
+  You are an excellent wedding planner with an eye for keeping budget low and beign eco friendly. Use the following text to suggest some ideas. 
   """${journal}"""
   `;
 }

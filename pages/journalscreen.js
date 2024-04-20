@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState} from "react";
+import { useState } from "react";
 import toast from "react-simple-toasts";
 import app from "../firebase";
 import styles from "./index.module.css";
@@ -50,8 +50,8 @@ export default function JournalScreen(props) {
 
   function submitJournal() {
     const newId = email.replace(/\./g, "");
-    const session = {date: formattedDate, ts: currentTime, entries: currEntry}
-   // const user = {id: email, name: name, sessions: sessions}
+    const session = { date: formattedDate, ts: currentTime, entries: currEntry }
+    // const user = {id: email, name: name, sessions: sessions}
     const ref = app
       .database()
       .ref("users")
@@ -99,14 +99,9 @@ export default function JournalScreen(props) {
       </Head>
 
       <main className={styles.main}>
-        <Link className={styles.journal} href={{ pathname: `/posts/entries`}}>
-          📓
-        </Link>
-        {result ? (
-          <Title level={2}>{result}</Title>
-        ) : (
-          <Title level={2}>How are you feeling today?</Title>
-        )}
+
+        <Title level={2}>Hi there! It's Jane, your wedding planner. It's a pleasure to meet you! Can you tell me what your budget and theme ideas are for your wedding?</Title>
+
         <textarea
           className={styles.focused}
           placeholder="Start typing. Once finished, press Enter to keep the conversation going. When you're done, hit `Save Entry`."
@@ -115,12 +110,11 @@ export default function JournalScreen(props) {
           name="journalEntry"
           onKeyDown={handlePressEnter}
         />
-        <Button className={styles.save} onClick={(e) => submitJournal(e)}>
-          Save Entry
-        </Button>
+        <div className={styles.response}>{result}</div>
         <Button className={styles.signOut} onClick={handleSignOut}>
           Sign Out
         </Button>
+
       </main>
     </>
   );

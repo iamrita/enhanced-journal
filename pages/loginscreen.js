@@ -36,10 +36,10 @@ export default function LoginScreen() {
     return (
       <div className={styles.signin}>
         <div>
-          <p className={styles.journalIcon}>📓</p>
+          <p className={styles.journalIcon}>🌹</p>
           <p>
-            Say hello to your new best friend &mdash; <br />
-            <b>your journal.</b>
+            Say hello to your Jane &mdash; <br />
+            <b>your wedding planner.</b>
           </p>
         </div>
         <button className={styles.centerButton} onClick={signInWithGoogle}>

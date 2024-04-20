@@ -54,6 +54,9 @@
   font-size: 50px;
 }
 
+.response {
+  font-size:25px
+}
 .centerButton {
   display: flex;
   flex-direction: row;
