@@ -8,6 +8,7 @@ import toast from "react-simple-toasts";
 import app from "../firebase";
 import styles from "./index.module.css";
 
+
 const { Title, Text } = Typography;
 
 export default function JournalScreen(props) {
@@ -15,8 +16,8 @@ export default function JournalScreen(props) {
   const [result, setResult] = useState();
   const [currEntry, setCurrEntry] = useState([]);
   const router = useRouter();
-  const email = sessionStorage.getItem("email")
-  const name = sessionStorage.getItem("name")
+  // const email = sessionStorage.getItem("email")
+  // const name = sessionStorage.getItem("name")
 
   const today = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -35,18 +36,18 @@ export default function JournalScreen(props) {
     }
   };
 
-  const handleSignOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        // Redirect to home page
-        router.push("/");
-      })
-      .catch((error) => {
-        console.error("Error signing out:", error);
-      });
-  };
+  // const handleSignOut = () => {
+  //   firebase
+  //     .auth()
+  //     .signOut()
+  //     .then(() => {
+  //       // Redirect to home page
+  //       router.push("/");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error signing out:", error);
+  //     });
+  // };
 
   function submitJournal() {
     const newId = email.replace(/\./g, "");
@@ -96,26 +97,58 @@ export default function JournalScreen(props) {
     <>
       <Head>
         <title>Enhanced Journal</title>
+        {/*  */}
       </Head>
-
-      <main className={styles.main}>
-
-        <Title level={2}>Hi there! It's Jane, your wedding planner. It's a pleasure to meet you! Can you tell me what your budget and theme ideas are for your wedding?</Title>
-
-        <textarea
-          className={styles.focused}
-          placeholder="Start typing. Once finished, press Enter to keep the conversation going. When you're done, hit `Save Entry`."
-          value={journalEntry}
-          onChange={(e) => handleTextareaChange(e)}
-          name="journalEntry"
-          onKeyDown={handlePressEnter}
-        />
-        <div className={styles.response}>{result}</div>
-        <Button className={styles.signOut} onClick={handleSignOut}>
+     
+    <section className={`${styles.chat} ${styles.fullScreen}`}>
+      {/* Header */}
+      <div className={`${styles['header-chat']}`}>
+        <i className={`icon fa fa-user-o`} aria-hidden="true"></i>
+        <p className={`${styles.name}`}>Jane the wedding planner</p>
+        <i className={`icon clickable fa fa-ellipsis-h ${styles.right}`} aria-hidden="true"></i>
+        <Button >
           Sign Out
         </Button>
-
-      </main>
+      </div>
+      
+      {/* Messages */}
+      <div className={`${styles['messages-chat']}`}>
+        {/* Message 1 */}
+        <div className={`${styles.message}`}>
+        <div className={`${styles.photo}`} style={{backgroundImage: 'url(https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aGFwcHklMjB3b21hbnxlbnwwfHwwfHx8MA%3D%3D)'}}>
+            <div className={`${styles.online}`}></div>
+          </div>
+          <p className={`${styles.text}`}>Hi there! It's Jane, your wedding planner. It's a pleasure to meet you! Can you tell me what your budget and theme ideas are for your wedding?</p>
+        </div>
+        {/*middle */}
+        <div className={`${styles.message} ${styles['text-only']}`}>
+          <div className={`${styles.response}`}>
+            <p className={`${styles.text}`}>{journalEntry}</p>
+          </div>
+        </div>
+        {/*  end */}
+        <div className={`${styles.message}`}>
+        <div className={`${styles.photo}`} style={{backgroundImage: 'url(https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8aGFwcHklMjB3b21hbnxlbnwwfHwwfHx8MA%3D%3D)'}}>
+            <div className={`${styles.online}`}></div>
+          </div>
+          <p className={`${styles.text}`}>{result}</p>
+        </div>
+        
+       
+      </div>
+      
+      {/* Footer */}
+      <div className={`${styles['footer-chat']}`}>
+        <i className={`icon fa fa-smile-o clickable`} style={{fontSize: '25pt'}} aria-hidden="true"></i>
+        <textarea type="text" className={`${styles['write-message']}`} 
+        placeholder="Start typing. Once finished, press Enter to keep the conversation going. When you're done, hit `Save Entry`." 
+        value={journalEntry}
+        onChange={(e) => handleTextareaChange(e)}
+        name="journalEntry"
+        onKeyDown={handlePressEnter}/>
+       
+      </div>
+    </section>
     </>
   );
 }
