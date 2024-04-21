@@ -19,8 +19,8 @@ export default async function (req, res) {
   }
 
   const journal = req.body.journal || "";
-  const theme = req.body.theme || ""
-  console.log(req.body)
+  const theme = (req.body.theme + "wedding") || ""
+  console.log("amrita" + req.body)
 
   try {
     const completion = await openai.createCompletion({
