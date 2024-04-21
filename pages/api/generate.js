@@ -1,4 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
+import axios from 'axios'
+
+
 require('dotenv').config();
 
 
@@ -35,8 +38,28 @@ export default async function (req, res) {
         n: 1,
         size: "512x512",
       });
+
+    const yelpResponse = await axios.get(
+      "https://api.yelp.com/v3/businesses/search",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.YELP_API_KEY}`,
+        },
+        params: {
+          term: "women owned",
+          location: req.body.location, // Specify the location you want to search
+        },
+      }
+    );
+    // Process the Yelp API response
+    const businesses = yelpResponse.data.businesses.slice(0, 10);
+    // Send the response back to the client
+    // res.status(200).json({
+    //   businesses,
+    // });
     console.log("amrita " + image.data.data[0].url);
-    res.status(200).json({ result: completion.data.choices[0].text, image: image.data.data[0].url });
+    res.status(200).json({ result: completion.data.choices[0].text, image: image.data.data[0].url, places: businesses });
+    console.log(businesses)
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {

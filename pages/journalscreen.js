@@ -22,6 +22,7 @@ export default function JournalScreen(props) {
   const [weddingThemes, setWeddingThemes] = useState("")
   const [picture, setPicture] = useState("")
   const [ecoFriendly, setEcoFriendly] = useState("")
+  const [places, setPlaces] = useState([])
 
   // const email = sessionStorage.getItem("email")
   // const name = sessionStorage.getItem("name")
@@ -155,7 +156,7 @@ export default function JournalScreen(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ journal: text, theme: weddingThemes }),
+        body: JSON.stringify({ journal: text, theme: weddingThemes, location: location }),
       });
 
       const data = await response.json();
@@ -168,7 +169,8 @@ export default function JournalScreen(props) {
 
       setResult(data.result);
       setPicture(data.image)
-
+      setPlaces(data.places)
+      console.log("amrita hello" + data.places)
       setJournalEntry("");
     } catch (error) {
       // Consider implementing your own error handling logic here
@@ -188,9 +190,9 @@ export default function JournalScreen(props) {
       <section className={`${styles.chat} ${styles.fullScreen}`}>
         {/* Header */}
         <div className={`${styles['header-chat']}`}>
-          <i className={`icon fa fa-user-o`} aria-hidden="true"></i>
+          <i className={`icon fa fa - user - o`} aria-hidden="true"></i>
           <p className={`${styles.name}`}>Jane the wedding planner</p>
-          <i className={`icon clickable fa fa-ellipsis-h ${styles.right}`} aria-hidden="true"></i>
+          <i className={`icon clickable fa fa - ellipsis - h ${styles.right}`} aria-hidden="true"></i>
 
         </div>
 
@@ -310,7 +312,7 @@ export default function JournalScreen(props) {
         {/* Footer */}
         {!result &&
           <div className={`${styles['footer-chat']}`}>
-            <i className={`icon fa fa-smile-o clickable`} style={{ fontSize: '25pt' }} aria-hidden="true"></i>
+            <i className={`icon fa fa - smile - o clickable`} style={{ fontSize: '25pt' }} aria-hidden="true"></i>
             <textarea type="text" className={`${styles['write-message']}`}
               placeholder="Start typing. Once finished, press Enter to keep the conversation going. "
               value={calculateEntry(submittedEntries)}
@@ -319,11 +321,31 @@ export default function JournalScreen(props) {
               onKeyDown={submit(submittedEntries)} />
           </div>}
       </section>
+
       {picture.length > 0 ? (
         <img className="result-image" src={picture} alt="result" />
       ) : (
         <></>
       )}
+      <div>Women-Owned Wedding Businesses in your area
+        <div>{places[0].name}</div>
+        <div>{places[1].name}</div>
+
+        <div>{places[2].name}</div>
+
+        <div>{places[3].name}</div>
+
+        <div>{places[4].name}</div>
+
+        <div>{places[5].name}</div>
+
+        <div>{places[6].name}</div>
+
+        <div>{places[7].name}</div>
+        <div>{places[8].name}</div>
+
+        <div>{places[9].name}</div>
+      </div>
     </>
   );
 }
