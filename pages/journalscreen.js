@@ -19,8 +19,6 @@ export default function JournalScreen(props) {
   const [number, setNumber] = useState("")
   const [weddingThemes, setWeddingThemes] = useState("")
   const router = useRouter();
-  const email = sessionStorage.getItem("email")
-  const name = sessionStorage.getItem("name")
   const [picture, setPicture] = useState("")
 
   const today = new Date();
